@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gino Vibe</title>
+<meta name="description" content="The Gino Vibe — original music and live shows. Solo acoustic, duos, trios and full band for bars, wineries, private events and festivals.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Figtree:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: chill, welcoming, warm — a guy inviting you to pull up a chair
+   IDEA: a candlelit bar-room gig — warm light on dark wood, setlist-style lists
+   PICTURE: Gino's own painted live photos, big, as a triptych up top
+   COLOUR and TYPE: espresso ground, candle amber, clay, a teal spark from the stage lights; Righteous + Figtree
+   LAYOUT: two equal doors (Listen / Book), then music, shows, lineups, about, merch, booking form */
+:root{color-scheme:dark;--bg:#19110c;--bg2:#24180f;--card:#2c1e14;--ink:#f3e7d6;--soft:#c9b69e;--amber:#eaa54b;--clay:#c75a32;--teal:#4fc1b0;--line:#4a3424}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Figtree,system-ui,sans-serif;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,.logo{font-family:Righteous,Figtree,sans-serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(32px,4.4vw,48px)}
+h3{font-size:24px}
+p{margin:0 0 1em;max-width:62ch}
+.band{padding:clamp(48px,7vw,96px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.sub{color:var(--soft)}
+.note{font-size:13px;color:var(--soft);opacity:.8;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 28px;border-radius:999px;font:800 17px Figtree,sans-serif;text-decoration:none;border:2px solid var(--amber);cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.fill{background:var(--amber);color:#1d120a}
+.btn.ghost{background:transparent;color:var(--amber)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(25,17,12,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;max-width:1240px;margin:0 auto;padding:12px max(5vw,16px)}
+.logo{font-size:26px;text-decoration:none;color:var(--amber);margin-right:auto}
+.logo span{color:var(--ink)}
+.nav nav{display:flex;flex-wrap:wrap;gap:4px 20px}
+.nav nav a{text-decoration:none;color:var(--soft);font-weight:600;padding:8px 0}
+.nav nav a:hover{color:var(--ink)}
+.nav .btn{min-height:44px;padding:0 20px;font-size:15px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center;max-width:1240px;margin:0 auto;padding:clamp(32px,5vw,72px) max(5vw,16px)}
+.hero h1{font-size:clamp(44px,6.4vw,84px);margin-bottom:22px}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero p{font-size:19px;color:var(--soft)}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;max-width:460px}
+.trip{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:clamp(380px,46vw,600px)}
+.trip img{width:100%;height:100%;object-fit:cover;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.trip img:first-child{grid-row:span 2;object-position:center 30%}
+.trip{position:relative}
+.trip::after{content:"";position:absolute;inset:-40px;z-index:-1;background:radial-gradient(closest-side,rgba(234,165,75,.28),transparent)}
+
+/* music */
+.music{background:var(--bg2);border-block:1px solid var(--line)}
+.mgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;margin-top:32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,34px)}
+.single{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+.cover{width:132px;aspect-ratio:1;border-radius:14px;background:url(img/window.jpg) center/cover;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.tag{display:inline-block;font-size:13px;font-weight:800;color:#13261f;background:var(--teal);padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.player{grid-column:1/-1;display:flex;align-items:center;gap:16px}
+.play{flex:none;width:52px;height:52px;border-radius:50%;border:0;background:var(--amber);display:grid;place-items:center;opacity:.55;cursor:not-allowed}
+.wave{flex:1;display:flex;align-items:center;gap:3px;height:44px}
+.wave i{flex:1;background:var(--line);border-radius:2px}
+.signup{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.signup input{flex:1 1 220px}
+input,select,textarea{width:100%;font:16px Figtree,sans-serif;color:var(--ink);background:#1d140e;border:1px solid var(--line);border-radius:12px;padding:13px 14px;min-height:48px}
+textarea{min-height:110px;resize:vertical}
+.thanks{color:var(--teal);font-weight:600;margin-top:10px;min-height:1.6em}
+
+/* shows */
+.shows{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid var(--line)}
+.shows li{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.date{font-family:Righteous;line-height:1;color:var(--amber);white-space:nowrap}
+.date b{display:block;font-size:40px;font-weight:400}
+.date small{font-family:Figtree;font-size:14px;font-weight:800;color:var(--soft)}
+.shows h3{font-size:21px}
+.shows .sub{font-size:15px}
+.chip{font-size:14px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 14px;white-space:nowrap;color:var(--soft)}
+
+/* lineups */
+.lineups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.lu{position:relative;border-radius:20px;overflow:hidden;min-height:380px;display:flex;align-items:flex-end}
+.lu img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.lu:hover img{transform:scale(1.04)}
+.lu div{position:relative;padding:24px;width:100%;background:linear-gradient(transparent,rgba(20,12,7,.94) 45%)}
+.lu p{font-size:15px;color:var(--soft);margin:6px 0 0}
+.events{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.events span{font-weight:600;padding:10px 18px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+
+/* gallery */
+.gal{display:flex;gap:14px;overflow-x:auto;padding:0 max(5vw,16px) 8px;scroll-snap-type:x mandatory}
+.gal img{flex:none;height:clamp(240px,32vw,380px);width:auto;border-radius:16px;scroll-snap-align:start}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(28px,5vw,64px);align-items:center}
+.about img{width:100%;aspect-ratio:4/3.3;object-fit:cover;border-radius:20px;filter:sepia(.35) contrast(1.05)}
+.about h2{margin-bottom:20px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.facts span{font-size:15px;font-weight:800;color:var(--amber);border:1px solid var(--amber);border-radius:999px;padding:6px 14px}
+
+/* merch */
+.merch{background:var(--bg2);border-block:1px solid var(--line)}
+.mgrid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;text-align:center}
+.item svg{width:100%;height:180px}
+.item h3{font-size:20px;margin-top:10px}
+
+/* booking */
+.book{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(28px,5vw,64px)}
+.steps{list-style:none;padding:0;margin:24px 0}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:12px;margin-bottom:16px;color:var(--soft)}
+.steps li b{width:34px;height:34px;border-radius:50%;background:var(--clay);color:var(--ink);display:grid;place-items:center;font-family:Righteous;font-weight:400}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+form .full{grid-column:1/-1}
+label{display:block;font-size:15px;font-weight:600;margin-bottom:6px}
+.out{grid-column:1/-1;background:#13261f;border:1px solid var(--teal);border-radius:14px;padding:18px;display:none}
+.out.show{display:block}
+.out pre{white-space:pre-wrap;font:14px/1.5 Figtree,sans-serif;color:var(--ink);margin:10px 0}
+.press{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between;margin-top:40px;padding:24px 28px;border-radius:20px;background:linear-gradient(110deg,var(--clay),#8e3a1f)}
+.press h3{font-size:24px}
+.press p{margin:4px 0 0;color:#f6dccb}
+.press .btn{border-color:var(--ink);color:var(--ink)}
+
+/* footer */
+footer{border-top:1px solid var(--line);background:#120c08}
+.foot{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+.socials{display:flex;flex-wrap:wrap;gap:12px}
+.socials a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-weight:600;color:var(--soft)}
+.socials a:hover{color:var(--amber);border-color:var(--amber)}
+
+@media(max-width:900px){
+  .hero,.mgrid,.about,.book{grid-template-columns:1fr}
+  .lineups,.mgrid3{grid-template-columns:1fr 1fr}
+  .lu{min-height:320px}
+}
+@media(max-width:600px){
+  .nav nav{order:3;width:100%;justify-content:space-between}
+  .doors{grid-template-columns:1fr}
+  .trip{height:440px}
+  .lineups,.mgrid3,form{grid-template-columns:1fr}
+  .shows li{grid-template-columns:76px minmax(0,1fr)}
+  .shows .chip{grid-column:2;justify-self:start}
+  .date b{font-size:32px}
+  .single{grid-template-columns:1fr}
+  .cover{width:100%;max-width:220px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="nav">
+  <a class="logo" href="#top">The Gino <span>Vibe</span></a>
+  <nav><a href="#music">Music</a><a href="#shows">Shows</a><a href="#about">About</a><a href="#merch">Merch</a></nav>
+  <a class="btn fill" href="#book">Book a show</a>
+</div></header>
+
+<main id="top">
+<section class="hero">
+  <div>
+    <h1>The night's better with a <em>soundtrack.</em></h1>
+    <p>Original songs and live sets from Gino. Solo acoustic, duos and trios, or the full band, for bars, wineries, private parties and festivals.</p>
+    <div class="doors">
+      <a class="btn fill" href="#music">▶ Listen</a>
+      <a class="btn ghost" href="#book">Book a show</a>
+    </div>
+  </div>
+  <div class="trip">
+    <img src="img/hero.jpg" alt="Gino smiling while playing acoustic guitar under a thatched roof, lit by candles">
+    <img src="img/profile.jpg" alt="Gino singing into a mic, painted in red tones">
+    <img src="img/outdoor.jpg" alt="Gino singing and playing electric guitar outdoors in an orange cap">
+  </div>
+</section>
+
+<section class="band music" id="music"><div class="wrap">
+  <h2>New music's on the way.</h2>
+  <p class="sub" style="margin-top:14px">I've got a vault of songs I've been sitting on. They're finally getting recorded, and each one comes with the story of how it happened.</p>
+  <div class="mgrid">
+    <div class="card single">
+      <div class="cover" role="img" aria-label="Single artwork placeholder"></div>
+      <div>
+        <span class="tag">First single · coming soon</span>
+        <h3>We Got Everything We Need</h3>
+        <p class="sub" style="margin:8px 0 0">Get on the list and you'll hear it before anybody else.</p>
+      </div>
+      <div class="player"><button class="play" disabled aria-label="Play (available on release)"><svg width="18" height="20" viewBox="0 0 18 20"><path d="M2 1l15 9-15 9z" fill="#1d120a"/></svg></button><div class="wave" id="wave"></div></div>
+      <form class="signup" data-signup style="grid-column:1/-1;display:flex">
+        <input type="email" required placeholder="Your email" aria-label="Your email">
+        <button class="btn fill" type="submit">Hear it first</button>
+      </form>
+      <div class="thanks" style="grid-column:1/-1"></div>
+    </div>
+    <div class="card">
+      <h3>The story behind the song</h3>
+      <p class="sub" style="margin-top:12px">Every song has a story behind it, like where it came from, who it's about, and what was going on when I wrote it. You'll get a taste of each one here. The full stories live on Patreon.</p>
+      <a class="btn ghost" href="#" aria-disabled="true">Patreon (coming soon)</a>
+      <p class="note">When the videos are ready, YouTube embeds go here.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="shows"><div class="wrap">
+  <h2>Upcoming shows</h2>
+  <ul class="shows" id="showlist"></ul>
+  <p class="note">Sample listings. Real dates come from your "Gino Vibe Shows" Google Calendar once it's connected.</p>
+</div></section>
+
+<section class="band" style="padding-top:0" id="lineups"><div class="wrap">
+  <h2>Pick your vibe</h2>
+  <div class="lineups">
+    <div class="lu"><img src="img/laugh.jpg" alt="Gino laughing mid-song with headphones and an acoustic guitar" style="object-position:40% center"><div><h3>Solo acoustic</h3><p>One guy, one guitar. Great for patios, wine nights and dinner crowds.</p></div></div>
+    <div class="lu"><img src="img/redroom.jpg" alt="Gino playing electric guitar in a red-walled room"><div><h3>Duo &amp; trio</h3><p>A little more groove, still easy on the room. Just right for bars and private parties.</p></div></div>
+    <div class="lu"><img src="img/band.jpg" alt="Gino and band on stage under blue lights"><div><h3>Full band</h3><p>Drums, bass and keys. The whole thing, for festivals and big nights.</p></div></div>
+  </div>
+  <div class="events"><span>Bars</span><span>Wineries</span><span>Private events</span><span>Festivals</span></div>
+</div></section>
+
+<div class="gal" aria-label="Photo gallery">
+  <img src="img/neon.jpg" alt="Gino playing a Stratocaster, painted in magenta and orange" loading="lazy">
+  <img src="img/window.jpg" alt="Silhouette of Gino playing guitar by a bright window" loading="lazy">
+  <img src="img/profile.jpg" alt="Gino singing, side profile" loading="lazy">
+  <img src="img/hero.jpg" alt="Gino with acoustic guitar by candlelight" loading="lazy">
+  <img src="img/band.jpg" alt="Live on stage with the band" loading="lazy">
+</div>
+
+<section class="band" id="about"><div class="wrap about">
+  <img src="img/laugh.jpg" alt="Gino laughing while playing acoustic guitar" style="object-position:35% center">
+  <div>
+    <h2>Hey, I'm Gino.</h2>
+    <p>I've been playing guitar and singing for about twenty years, in bars, backyards and on festival stages. These days I'm writing my own songs, and I record and produce them myself.</p>
+    <p>I'm an Army vet, and I'm a lot better at playing songs than talking about myself, so come out to a show and you'll get the idea pretty quick.</p>
+    <div class="facts"><span>20 years playing</span><span>Army veteran</span><span>Writes &amp; produces</span></div>
+    <p class="note">Draft copy. This gets rewritten from your answers to the About questions.</p>
+  </div>
+</div></section>
+
+<section class="band merch" id="merch"><div class="wrap">
+  <h2>Merch</h2>
+  <p class="sub" style="margin-top:14px">Shirts, hats and stickers for the people who keep coming back.</p>
+  <div class="mgrid3" id="merchgrid"></div>
+  <p class="note">Placeholder items. The shop will run through a print-on-demand store, so nothing has to be stocked.</p>
+</div></section>
+
+<section class="band" id="book"><div class="wrap">
+  <div class="book">
+    <div>
+      <h2>Let's make your night.</h2>
+      <p class="sub" style="margin-top:14px">Bar, winery, backyard party or festival stage. Tell me what you've got in mind and I'll get back to you with a quote.</p>
+      <ol class="steps">
+        <li><b>1</b><span>Send the details: date, place, and the lineup you're thinking.</span></li>
+        <li><b>2</b><span>I'll reply with availability and a quote.</span></li>
+        <li><b>3</b><span>We lock it in, and I'll bring the soundtrack.</span></li>
+      </ol>
+      <p class="sub">Or email me directly: <a href="mailto:theginovibe@proton.me">theginovibe@proton.me</a></p>
+    </div>
+    <form id="bookform" novalidate>
+      <div><label for="b-name">Your name</label><input id="b-name" required autocomplete="name"></div>
+      <div><label for="b-email">Email</label><input id="b-email" type="email" required autocomplete="email"></div>
+      <div><label for="b-type">Type of event</label><select id="b-type"><option>Bar or restaurant</option><option>Winery</option><option>Private event</option><option>Festival</option><option>Something else</option></select></div>
+      <div><label for="b-lineup">Lineup</label><select id="b-lineup"><option>Solo acoustic</option><option>Acoustic duo</option><option>Acoustic trio</option><option>Full band</option><option>Not sure yet</option></select></div>
+      <div><label for="b-date">Date</label><input id="b-date" type="date"></div>
+      <div><label for="b-where">City or venue</label><input id="b-where"></div>
+      <div class="full"><label for="b-notes">Anything else? (hours, crowd size, vibe)</label><textarea id="b-notes"></textarea></div>
+      <div class="full"><button class="btn fill" type="submit" style="width:100%">Send booking request</button></div>
+      <div class="out" id="bookout" role="status"></div>
+    </form>
+  </div>
+  <div class="press">
+    <div><h3>Booking for a venue?</h3><p>Grab the press kit: bio, photos, sample setlist and what I bring.</p></div>
+    <a class="btn ghost" href="#" aria-disabled="true">Press kit (coming soon)</a>
+  </div>
+</div></section>
+
+<section class="band" style="background:var(--bg2);border-top:1px solid var(--line)"><div class="wrap" style="text-align:center">
+  <h2>Stay in the loop.</h2>
+  <p class="sub" style="margin:14px auto 0">New songs, show dates and the occasional story. No spam, ever.</p>
+  <form class="signup" data-signup style="max-width:520px;margin:22px auto 0">
+    <input type="email" required placeholder="Your email" aria-label="Your email">
+    <button class="btn fill" type="submit">Sign me up</button>
+  </form>
+  <div class="thanks"></div>
+</div></section>
+</main>
+
+<footer class="band" style="padding-block:40px"><div class="wrap foot">
+  <div><a class="logo" href="#top" style="font-size:24px">The Gino <span>Vibe</span></a><p class="sub" style="margin:6px 0 0;font-size:15px">theginovibe@proton.me</p></div>
+  <div class="socials">
+    <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">X</a>
+  </div>
+  <p class="sub" style="width:100%;font-size:14px;margin:0">© 2026 The Gino Vibe</p>
+</div></footer>
+
+<script>
+{
+  const shows=[
+    {m:'DEC',d:'13',t:'Example Winery',w:'Saturday · 5–8pm · Your town, CA',l:'Solo acoustic'},
+    {m:'DEC',d:'20',t:'Example Bar & Grill',w:'Saturday · 8–11pm · Your town, CA',l:'Acoustic duo'},
+    {m:'JAN',d:'10',t:'Example Street Festival',w:'Saturday · 2pm · Your town, CA',l:'Full band'}
+  ];
+  document.getElementById('showlist').innerHTML=shows.map(s=>`<li><div class="date"><small>${s.m}</small><b>${s.d}</b></div><div><h3>${s.t}</h3><div class="sub">${s.w}</div></div><span class="chip">${s.l}</span></li>`).join('');
+
+  const wave=document.getElementById('wave');
+  wave.innerHTML=Array.from({length:48},(_,i)=>`<i style="height:${18+Math.round(Math.abs(Math.sin(i*.55)*Math.cos(i*.21))*82)}%"></i>`).join('');
+
+  const tee='<path d="M60 40l25-15h30l25 15 20 25-20 12-10-8v86H70V69l-10 8-20-12z" fill="#3a2a1d" stroke="#4a3424"/>';
+  const hat='<path d="M50 110c0-40 22-62 50-62s50 22 50 62z" fill="#3a2a1d" stroke="#4a3424"/><path d="M40 110h120c0 10-12 14-30 14H70c-18 0-30-4-30-14z" fill="#c75a32"/>';
+  const stk='<circle cx="100" cy="90" r="62" fill="#eaa54b"/><circle cx="100" cy="90" r="52" fill="none" stroke="#19110c" stroke-width="3" stroke-dasharray="4 6"/>';
+  const word=(y,s,c)=>`<text x="100" y="${y}" text-anchor="middle" font-family="Righteous" font-size="${s}" fill="${c}">The Gino</text><text x="100" y="${y+s}" text-anchor="middle" font-family="Righteous" font-size="${s}" fill="${c}">Vibe</text>`;
+  const items=[
+    {n:'Gino Vibe tee',svg:tee+word(92,15,'#eaa54b')},
+    {n:'Dad cap',svg:hat+word(86,13,'#eaa54b')},
+    {n:'Sticker pack',svg:stk+word(86,18,'#19110c')}
+  ];
+  document.getElementById('merchgrid').innerHTML=items.map(i=>`<div class="item"><svg viewBox="0 0 200 180" role="img" aria-label="${i.n} mockup">${i.svg}</svg><h3>${i.n}</h3><p class="sub" style="margin:4px auto 0;font-size:15px">Coming soon</p></div>`).join('');
+
+  document.querySelectorAll('[data-signup]').forEach(f=>f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const t=f.nextElementSibling;
+    t.textContent=f.checkValidity()?"You're on the list. (Draft: this connects to the newsletter tool at launch.)":'Pop in a real email address.';
+  }));
+
+  const bf=document.getElementById('bookform'),out=document.getElementById('bookout');
+  bf.addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=id=>document.getElementById(id).value.trim();
+    if(!v('b-name')||!document.getElementById('b-email').checkValidity()||!v('b-email')){out.className='out show';out.innerHTML='<b>Need your name and a valid email so I can get back to you.</b>';return}
+    const body=`Name: ${v('b-name')}\nEmail: ${v('b-email')}\nEvent: ${v('b-type')}\nLineup: ${v('b-lineup')}\nDate: ${v('b-date')||'TBD'}\nWhere: ${v('b-where')||'TBD'}\nNotes: ${v('b-notes')||'-'}`;
+    const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    out.className='out show';
+    out.innerHTML=`<b>Got it. Here's your request:</b><pre>${esc(body)}</pre><span class="sub" style="font-size:14px">Draft: at launch this goes straight to Gino's inbox. For now, send it to theginovibe@proton.me.</span>`;
+  });
+}
+</script>
+</body>
+</html>
