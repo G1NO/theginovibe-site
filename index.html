@@ -284,6 +284,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
     <div>
       <h2>Let's make your night.</h2>
       <p class="sub" style="margin-top:14px">Bar, winery, backyard party or festival stage. Tell me what you've got in mind and I'll get back to you with a quote.</p>
+      <p class="sub" style="font-size:15px;border-left:0;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px">Has played Angel Force USA benefit shows for veterans, including at Fort Belvoir and Edwards AFB.</p>
       <ol class="steps">
         <li><b>1</b><span>Send the details: date, place, and the lineup you're thinking.</span></li>
         <li><b>2</b><span>I'll reply with availability and a quote.</span></li>
@@ -344,12 +345,12 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
   const clips=[
     ['sharkeys-2016','Live at Sharkey\'s','Full band, 2016'],
-    ['edge-of-the-ocean','Edge of the Ocean','Live at Mozambique, duo'],
-    ['wake-me-up-mozambique','Wake Me Up','Live at Mozambique, duo'],
-    ['wild-world','Wild World','Live at Mozambique, duo'],
+    ['edge-of-the-ocean','Edge of the Ocean','Angel Force USA show at Mozambique, Laguna Beach · Duo'],
+    ['wake-me-up-mozambique','Wake Me Up','Angel Force USA show at Mozambique, Laguna Beach · Duo'],
+    ['wild-world','Wild World','Angel Force USA show at Mozambique, Laguna Beach · Duo'],
     ['we-should-get-together','We Should Get Together','Just me and a guitar'],
     ['wake-me-up-dc','Wake Me Up','Angel Force USA benefit, Fort Belvoir, VA · Trio with violin and bass'],
-    ['three-little-birds','Three Little Birds','Live at Mozambique, trio']
+    ['three-little-birds','Three Little Birds','Angel Force USA show at Mozambique, Laguna Beach · Trio']
   ];
   document.getElementById('cliplist').innerHTML=clips.map(([f,t,d])=>`<div class="clip"><video controls playsinline preload="none" poster="video/${f}.jpg" src="video/${f}.mp4"></video><div><h3>${t}</h3><p>${d}</p></div></div>`).join('');
 
