@@ -97,6 +97,16 @@ textarea{min-height:110px;resize:vertical}
 .events{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 .events span{font-weight:600;padding:10px 18px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
 
+
+/* live clips */
+.clips{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,1fr);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin-top:28px}
+.clip{scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.clip video{display:block;width:100%;aspect-ratio:16/9;background:#000;object-fit:contain}
+.clip div{padding:14px 16px}
+.clip h3{font-size:19px}
+.clip p{margin:4px 0 0;font-size:14px;color:var(--soft)}
+@media(min-width:1000px){.clips{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}}
+
 /* gallery */
 .gal{display:flex;gap:14px;overflow-x:auto;padding:0 max(5vw,16px) 8px;scroll-snap-type:x mandatory}
 .gal img{flex:none;height:clamp(240px,32vw,380px);width:auto;border-radius:16px;scroll-snap-align:start}
@@ -162,7 +172,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
 <header><div class="nav">
   <a class="logo" href="#top"><img src="img/logos/drive-badge-128.png" alt="" width="44" height="43" style="display:inline-block;vertical-align:middle;margin-right:10px;border-radius:50%">The Gino <span>Vibe</span></a>
-  <nav><a href="#music">Music</a><a href="#shows">Shows</a><a href="meditation.html">Meditation</a><a href="#about">About</a><a href="#merch">Merch</a></nav>
+  <nav><a href="#music">Music</a><a href="#clips">Videos</a><a href="#shows">Shows</a><a href="meditation.html">Meditation</a><a href="#about">About</a><a href="#merch">Merch</a></nav>
   <a class="btn fill" href="#book">Book a show</a>
 </div></header>
 
@@ -205,9 +215,15 @@ footer{border-top:1px solid var(--line);background:#120c08}
       <h3>The story behind the song</h3>
       <p class="sub" style="margin-top:12px">Every song has a story behind it, like where it came from, who it's about, and what was going on when I wrote it. You'll get a taste of each one here. The full stories live on Patreon.</p>
       <a class="btn ghost" href="#" aria-disabled="true">Patreon (coming soon)</a>
-      <p class="note">When the videos are ready, YouTube embeds go here.</p>
+      
     </div>
   </div>
+</div></section>
+
+<section class="band" id="clips"><div class="wrap">
+  <h2>Live clips</h2>
+  <p class="sub" style="margin-top:14px">Phone videos from real gigs: solo, duo, trio and the full band.</p>
+  <div class="clips" id="cliplist"></div>
 </div></section>
 
 <section class="band" id="shows"><div class="wrap">
@@ -219,7 +235,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
 <section class="band" style="padding-top:0" id="lineups"><div class="wrap">
   <h2>Pick your vibe</h2>
   <div class="lineups">
-    <div class="lu"><img src="img/laugh.jpg" alt="Gino laughing mid-song with headphones and an acoustic guitar" style="object-position:40% center"><div><h3>Solo acoustic</h3><p>One guy, one guitar. Great for patios, wine nights and dinner crowds.</p></div></div>
+    <div class="lu"><img src="img/solo.jpg" alt="Gino singing and playing acoustic guitar in his studio, wearing headphones" style="object-position:45% center"><div><h3>Solo acoustic</h3><p>One guy, one guitar. Great for patios, wine nights and dinner crowds.</p></div></div>
     <div class="lu"><img src="img/duo-trio.jpg" alt="Top: Gino on guitar with a djembe player as a duo. Bottom: Gino in a trio with a violinist and a second guitarist" style="object-position:center"><div><h3>Duo &amp; trio</h3><p>A little more groove, still easy on the room. Just right for bars and private parties.</p></div></div>
     <div class="lu"><img src="img/band.jpg" alt="Gino and band on stage under blue lights"><div><h3>Full band</h3><p>Drums, bass and keys. The whole thing, for festivals and big nights.</p></div></div>
   </div>
@@ -324,6 +340,20 @@ footer{border-top:1px solid var(--line);background:#120c08}
   const today=new Date();today.setHours(0,0,0,0);
   const upcoming=shows.filter(s=>new Date((s.end||s.date)+'T23:59:59')>=today);
   document.getElementById('showlist').innerHTML=upcoming.length?upcoming.map(s=>{const[y,m,d]=s.date.split('-');return `<li><div class="date"><small>${MON[+m-1]}</small><b>${+d}</b></div><div><h3>${s.t}</h3><div class="sub">${s.w}</div></div><span class="chip">${s.l}</span></li>`}).join(''):'<li><div></div><div><h3>No public dates right now</h3><div class="sub">Want me at your place? <a href="#book">Book a show</a>.</div></div></li>';
+
+
+  const clips=[
+    ['sharkeys-2016','Live at Sharkey\'s','Full band, 2016'],
+    ['july4-outdoor-part1','Fourth of July','Outdoor stage, solo acoustic'],
+    ['edge-of-the-ocean','Edge of the Ocean','Live at Mozambique, duo'],
+    ['wake-me-up-mozambique','Wake Me Up','Live at Mozambique, duo'],
+    ['wild-world','Wild World','Live at Mozambique, duo'],
+    ['we-should-get-together','We Should Get Together','Just me and a guitar'],
+    ['wake-me-up-dc','Wake Me Up','Trio with violin and guitar'],
+    ['three-little-birds','Three Little Birds','Live at Mozambique, trio'],
+    ['july4-outdoor-part2','Fourth of July, part 2','Outdoor stage, solo acoustic']
+  ];
+  document.getElementById('cliplist').innerHTML=clips.map(([f,t,d])=>`<div class="clip"><video controls playsinline preload="none" poster="video/${f}.jpg" src="video/${f}.mp4"></video><div><h3>${t}</h3><p>${d}</p></div></div>`).join('');
 
   const wave=document.getElementById('wave');
   wave.innerHTML=Array.from({length:48},(_,i)=>`<i style="height:${18+Math.round(Math.abs(Math.sin(i*.55)*Math.cos(i*.21))*82)}%"></i>`).join('');
