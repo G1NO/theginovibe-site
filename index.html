@@ -54,9 +54,9 @@ header{position:sticky;top:0;z-index:40;background:rgba(25,17,12,.88);backdrop-f
 .hero h1 em{font-style:normal;color:var(--amber)}
 .hero p{font-size:19px;color:var(--soft)}
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;max-width:460px}
-.trip{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:clamp(380px,46vw,600px)}
+.trip{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:12px;height:clamp(380px,46vw,600px)}
 .trip img{width:100%;height:100%;object-fit:cover;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-.trip img:first-child{grid-row:span 2;object-position:center 40%}
+.trip img:first-child{object-position:center 40%}
 .trip{position:relative}
 .trip::after{content:"";position:absolute;inset:-40px;z-index:-1;background:radial-gradient(closest-side,rgba(234,165,75,.28),transparent)}
 
@@ -188,7 +188,6 @@ footer{border-top:1px solid var(--line);background:#120c08}
   </div>
   <div class="trip">
     <img src="img/drive.jpg" alt="Gino behind the wheel at sunset in deep blue and orange tones, with The Gino Vibe badge">
-    <img src="img/profile.jpg" alt="Gino singing into a mic, painted in red tones">
     <img src="img/outdoor.jpg" alt="Gino singing and playing electric guitar outdoors in an orange cap">
   </div>
 </section>
@@ -243,11 +242,9 @@ footer{border-top:1px solid var(--line);background:#120c08}
 </div></section>
 
 <div class="gal" aria-label="Photo gallery">
-  <img src="img/neon.jpg" alt="Gino playing a Stratocaster, painted in magenta and orange" loading="lazy">
   <img src="img/window.jpg" alt="Silhouette of Gino playing guitar by a bright window" loading="lazy">
   <img src="img/profile.jpg" alt="Gino singing, side profile" loading="lazy">
   <img src="img/hero.jpg" alt="Gino with acoustic guitar by candlelight" loading="lazy">
-  <img src="img/band.jpg" alt="Live on stage with the band" loading="lazy">
 </div>
 
 <section class="band" style="background:#160f0a;border-block:1px solid var(--line)"><div class="wrap" style="display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center" id="still">
