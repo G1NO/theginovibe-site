@@ -213,7 +213,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
 <section class="band" id="shows"><div class="wrap">
   <h2>Upcoming shows</h2>
   <ul class="shows" id="showlist"></ul>
-  <p class="note">Sample listings. Real dates come from your "Gino Vibe Shows" Google Calendar once it's connected.</p>
+  <p class="note">Want to catch a set or bring the vibe to your event? <a href="#book">Book a show</a>.</p>
 </div></section>
 
 <section class="band" style="padding-top:0" id="lineups"><div class="wrap">
@@ -312,12 +312,16 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
 <script>
 {
+  // Add shows here. end = the date the show ends; past shows hide themselves the next day.
   const shows=[
-    {m:'DEC',d:'13',t:'Example Winery',w:'Saturday · 5–8pm · Your town, CA',l:'Solo acoustic'},
-    {m:'DEC',d:'20',t:'Example Bar & Grill',w:'Saturday · 8–11pm · Your town, CA',l:'Acoustic duo'},
-    {m:'JAN',d:'10',t:'Example Street Festival',w:'Saturday · 2pm · Your town, CA',l:'Full band'}
+    {date:'2026-12-10',t:'Private Holiday Party',w:'Thursday · 7–10pm · Private event',l:'Solo acoustic'},
+    {date:'2026-12-16',t:"Perqe's Xmas Party",w:'Wednesday · 8–11pm · Sitting in with Parkaimoon',l:'Full band'},
+    {date:'2027-01-01',end:'2027-01-02',t:"New Year's Day with Parkaimoon",w:'Friday · 9pm–1am',l:'Full band'}
   ];
-  document.getElementById('showlist').innerHTML=shows.map(s=>`<li><div class="date"><small>${s.m}</small><b>${s.d}</b></div><div><h3>${s.t}</h3><div class="sub">${s.w}</div></div><span class="chip">${s.l}</span></li>`).join('');
+  const MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const today=new Date();today.setHours(0,0,0,0);
+  const upcoming=shows.filter(s=>new Date((s.end||s.date)+'T23:59:59')>=today);
+  document.getElementById('showlist').innerHTML=upcoming.length?upcoming.map(s=>{const[y,m,d]=s.date.split('-');return `<li><div class="date"><small>${MON[+m-1]}</small><b>${+d}</b></div><div><h3>${s.t}</h3><div class="sub">${s.w}</div></div><span class="chip">${s.l}</span></li>`}).join(''):'<li><div></div><div><h3>No public dates right now</h3><div class="sub">Want me at your place? <a href="#book">Book a show</a>.</div></div></li>';
 
   const wave=document.getElementById('wave');
   wave.innerHTML=Array.from({length:48},(_,i)=>`<i style="height:${18+Math.round(Math.abs(Math.sin(i*.55)*Math.cos(i*.21))*82)}%"></i>`).join('');
