@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Gino Vibe</title>
 <meta name="description" content="The Gino Vibe — original music and live shows. Solo acoustic, duos, trios and full band for bars, wineries, private events and festivals.">
+<link rel="icon" href="img/logos/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Figtree:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -135,6 +136,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
 .socials a:hover{color:var(--amber);border-color:var(--amber)}
 
 @media(max-width:900px){
+  #still{grid-template-columns:1fr!important}
   .hero,.mgrid,.about,.book{grid-template-columns:1fr}
   .lineups,.mgrid3{grid-template-columns:1fr 1fr}
   .lu{min-height:320px}
@@ -157,7 +159,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
 <header><div class="nav">
   <a class="logo" href="#top">The Gino <span>Vibe</span></a>
-  <nav><a href="#music">Music</a><a href="#shows">Shows</a><a href="#about">About</a><a href="#merch">Merch</a></nav>
+  <nav><a href="#music">Music</a><a href="#shows">Shows</a><a href="meditation.html">Meditation</a><a href="#about">About</a><a href="#merch">Merch</a></nav>
   <a class="btn fill" href="#book">Book a show</a>
 </div></header>
 
@@ -228,6 +230,15 @@ footer{border-top:1px solid var(--line);background:#120c08}
   <img src="img/hero.jpg" alt="Gino with acoustic guitar by candlelight" loading="lazy">
   <img src="img/band.jpg" alt="Live on stage with the band" loading="lazy">
 </div>
+
+<section class="band" style="background:#160f0a;border-block:1px solid var(--line)"><div class="wrap" style="display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center" id="still">
+  <img src="img/logos/the-gino-vibe-meditation-badge.png" alt="The Gino Vibe meditation badge" loading="lazy" style="width:100%;max-width:260px">
+  <div>
+    <h2>Need to slow down?</h2>
+    <p class="sub" style="margin-top:14px">Be Still is my meditation music: guitar, space and breath, made for sleep, focus and quiet mornings. No ads, and you can loop it or set a timer.</p>
+    <a class="btn ghost" href="meditation.html">Be still</a>
+  </div>
+</div></section>
 
 <section class="band" id="about"><div class="wrap about">
   <img src="img/laugh.jpg" alt="Gino laughing while playing acoustic guitar" style="object-position:35% center">
