@@ -341,15 +341,15 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
 
   const clips=[
-    ['pour-another-drink','Pour Another Drink','Original · Live at Lola\'s, Belize'],
-    ['we-love-tonight','We Love Tonight','Original · Live at Lola\'s, Belize'],
     ['sharkeys-2016','Live at Sharkey\'s','Full band, 2016'],
     ['edge-of-the-ocean','Edge of the Ocean','Angel Force USA show at Mozambique, Laguna Beach · Duo'],
     ['wake-me-up-mozambique','Wake Me Up','Angel Force USA show at Mozambique, Laguna Beach · Duo'],
     ['wild-world','Wild World','Angel Force USA show at Mozambique, Laguna Beach · Duo'],
     ['we-should-get-together','We Should Get Together','Just me and a guitar'],
     ['wake-me-up-dc','Wake Me Up','Angel Force USA benefit, Fort Belvoir, VA · Trio with violin and bass'],
-    ['three-little-birds','Three Little Birds','Angel Force USA show at Mozambique, Laguna Beach · Trio']
+    ['three-little-birds','Three Little Birds','Angel Force USA show at Mozambique, Laguna Beach · Trio'],
+    ['pour-another-drink','Pour Another Drink','Original · Live at Lola\'s, Belize'],
+    ['we-love-tonight','We Love Tonight','Original · Live at Lola\'s, Belize']
   ];
   document.getElementById('cliplist').innerHTML=clips.map(([f,t,d])=>`<div class="clip"><video controls playsinline preload="none" poster="video/${f}.jpg" src="video/${f}.mp4"></video><div><h3>${t}</h3><p>${d}</p></div></div>`).join('');
 
