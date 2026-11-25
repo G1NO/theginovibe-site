@@ -191,10 +191,19 @@ footer{border-top:1px solid var(--line);background:#100a06}
   const loop=document.getElementById('loop');
   loop.addEventListener('click',()=>loop.setAttribute('aria-pressed',loop.getAttribute('aria-pressed')!=='true'));
 
-  document.getElementById('signup').addEventListener('submit',e=>{
+  const WEB3FORMS_KEY='85d5c489-7835-4488-bc29-48a40bc80e4c';
+  document.getElementById('signup').addEventListener('submit',async e=>{
     e.preventDefault();
-    const ok=e.target.checkValidity();
-    document.getElementById('thanks').textContent=ok?"You're on the list. (Draft: this connects to the newsletter tool at launch.)":'Pop in a real email address.';
+    const f=e.target, t=document.getElementById('thanks'), btn=f.querySelector('button'), email=f.querySelector('input').value.trim();
+    if(!f.checkValidity()){t.textContent='Pop in a real email address.';return}
+    btn.disabled=true;t.textContent='Adding you...';
+    try{
+      const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'New email signup: Be Still (meditation)',from_name:'The Gino Vibe website',email,list:'Be Still meditation'})});
+      const j=await r.json();
+      if(j.success){t.textContent="You're on the list. Thanks!";f.reset()}else throw 0;
+    }catch(_){t.textContent="That didn't go through. Try again, or email theginovibe@proton.me."}
+    btn.disabled=false;
   });
 }
 </script>
