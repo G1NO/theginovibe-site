@@ -141,6 +141,29 @@ label{display:block;font-size:15px;font-weight:600;margin-bottom:6px}
 .press p{margin:4px 0 0;color:#f6dccb}
 .press .btn{border-color:var(--ink);color:var(--ink)}
 
+
+/* booking calendar */
+.cal{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin:22px 0}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head b{font-family:Righteous;font-weight:400;font-size:22px}
+.cal-nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:20px;cursor:pointer}
+.cal-nav:disabled{opacity:.3;cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal-dow{text-align:center;font-size:13px;font-weight:600;color:var(--soft);padding:4px 0}
+.day{position:relative;aspect-ratio:1;min-height:40px;border-radius:12px;border:1px solid var(--line);background:#1d140e;color:var(--ink);font:600 16px Figtree,sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0}
+.day:hover:not(:disabled){border-color:var(--amber)}
+.day.blank{visibility:hidden}
+.day:disabled{cursor:default}
+.day.past{opacity:.28}
+.day.booked{background:rgba(199,90,50,.22);border-color:rgba(199,90,50,.55);color:#e9b39c}
+.day.booked small{font-size:10px;font-weight:600;letter-spacing:.02em}
+.day.today{box-shadow:inset 0 0 0 2px var(--teal)}
+.day.sel{background:var(--amber);border-color:var(--amber);color:#1d120a}
+.cal-legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:14px;color:var(--soft)}
+.cal-legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+.picked{font-weight:600;color:var(--amber);min-height:1.5em;margin:0}
+.hp{position:absolute;left:-9999px}
+
 /* footer */
 footer{border-top:1px solid var(--line);background:#120c08}
 .foot{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
@@ -282,19 +305,21 @@ footer{border-top:1px solid var(--line);background:#120c08}
       <h2>Let's make your night.</h2>
       <p class="sub" style="margin-top:14px">Bar, winery, backyard party or festival stage. Tell me what you've got in mind and I'll get back to you with a quote.</p>
       <p class="sub" style="font-size:15px;border-left:0;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px">Has played Angel Force USA benefit shows for veterans, including at Fort Belvoir and Edwards AFB.</p>
-      <ol class="steps">
-        <li><b>1</b><span>Send the details: date, place, and the lineup you're thinking.</span></li>
-        <li><b>2</b><span>I'll reply with availability and a quote.</span></li>
-        <li><b>3</b><span>We lock it in, and I'll bring the soundtrack.</span></li>
-      </ol>
+      <div class="cal" id="cal" aria-label="Availability calendar">
+        <div class="cal-head"><button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">&#8249;</button><b id="cal-title"></b><button type="button" class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button></div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-legend"><span><i style="background:#1d140e;border:1px solid var(--line)"></i>Open</span><span><i style="background:rgba(199,90,50,.5)"></i>Booked</span><span><i style="background:var(--amber)"></i>Your date</span></div>
+      </div>
+      <p class="sub" style="font-size:15px">Tap an open date, then fill in the details. I'll reply with availability and a quote.</p>
       <p class="sub">Or email me directly: <a href="mailto:theginovibe@proton.me">theginovibe@proton.me</a></p>
     </div>
     <form id="bookform" novalidate>
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div><label for="b-name">Your name</label><input id="b-name" required autocomplete="name"></div>
       <div><label for="b-email">Email</label><input id="b-email" type="email" required autocomplete="email"></div>
       <div><label for="b-type">Type of event</label><select id="b-type"><option>Bar or restaurant</option><option>Winery</option><option>Private event</option><option>Festival</option><option>Something else</option></select></div>
       <div><label for="b-lineup">Lineup</label><select id="b-lineup"><option>Solo acoustic</option><option>Acoustic duo</option><option>Acoustic trio</option><option>Full band</option><option>Not sure yet</option></select></div>
-      <div><label for="b-date">Date</label><input id="b-date" type="date"></div>
+      <div><label for="b-date">Date</label><input id="b-date" type="date"><p class="picked" id="picked"></p></div>
       <div><label for="b-where">City or venue</label><input id="b-where"></div>
       <div class="full"><label for="b-notes">Anything else? (hours, crowd size, vibe)</label><textarea id="b-notes"></textarea></div>
       <div class="full"><button class="btn fill" type="submit" style="width:100%">Send booking request</button></div>
@@ -373,15 +398,72 @@ footer{border-top:1px solid var(--line);background:#120c08}
     t.textContent=f.checkValidity()?"You're on the list. (Draft: this connects to the newsletter tool at launch.)":'Pop in a real email address.';
   }));
 
+  // ---- booking calendar ----
+  // Dates you can't take but aren't public shows: add them here as 'YYYY-MM-DD'
+  const blocked=[];
+  const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const booked=new Set(blocked);
+  shows.forEach(s=>{booked.add(s.date)});
+  const dateIn=document.getElementById('b-date'),picked=document.getElementById('picked');
+  const now=new Date();now.setHours(0,0,0,0);
+  dateIn.min=iso(now);
+  let view=new Date(now.getFullYear(),now.getMonth(),1);
+  const maxView=new Date(now.getFullYear()+1,now.getMonth(),1);
+  const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function drawCal(){
+    const y=view.getFullYear(),m=view.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+    document.getElementById('cal-title').textContent=`${MONTHS[m]} ${y}`;
+    document.getElementById('cal-prev').disabled=view<=new Date(now.getFullYear(),now.getMonth(),1);
+    document.getElementById('cal-next').disabled=view>=maxView;
+    let h=['S','M','T','W','T','F','S'].map(d=>`<div class="cal-dow">${d}</div>`).join('');
+    for(let i=0;i<first;i++)h+='<button type="button" class="day blank" disabled tabindex="-1"></button>';
+    for(let d=1;d<=days;d++){
+      const dt=new Date(y,m,d),k=iso(dt),past=dt<now,bk=booked.has(k);
+      const cls=['day',past?'past':'',bk?'booked':'',+dt===+now?'today':'',dateIn.value===k?'sel':''].join(' ');
+      const label=`${MONTHS[m]} ${d}${bk?', booked':past?', past':', open'}`;
+      h+=`<button type="button" class="${cls}" data-d="${k}" ${past||bk?'disabled':''} aria-label="${label}">${d}${bk?'<small>Booked</small>':''}</button>`;
+    }
+    document.getElementById('cal-grid').innerHTML=h;
+  }
+  function showPicked(){
+    if(!dateIn.value){picked.textContent='';return}
+    const[y,m,d]=dateIn.value.split('-').map(Number),dt=new Date(y,m-1,d);
+    picked.textContent=booked.has(dateIn.value)?'Heads up: that date is already booked.':dt.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  }
+  document.getElementById('cal-grid').addEventListener('click',e=>{
+    const b=e.target.closest('[data-d]');if(!b||b.disabled)return;
+    dateIn.value=b.dataset.d;showPicked();drawCal();
+    if(window.matchMedia('(max-width:900px)').matches)document.getElementById('bookform').scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('b-name').focus({preventScroll:true});
+  });
+  document.getElementById('cal-prev').addEventListener('click',()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);drawCal()});
+  document.getElementById('cal-next').addEventListener('click',()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);drawCal()});
+  dateIn.addEventListener('change',()=>{if(dateIn.value){const[y,m]=dateIn.value.split('-').map(Number);view=new Date(y,m-1,1)}showPicked();drawCal()});
+  drawCal();
+
+  // ---- send the request ----
+  // Paste the Web3Forms access key here (emailed to theginovibe@proton.me). Until then the form shows a summary instead of sending.
+  const WEB3FORMS_KEY='';
   const bf=document.getElementById('bookform'),out=document.getElementById('bookout');
-  bf.addEventListener('submit',e=>{
+  const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  bf.addEventListener('submit',async e=>{
     e.preventDefault();
     const v=id=>document.getElementById(id).value.trim();
-    if(!v('b-name')||!document.getElementById('b-email').checkValidity()||!v('b-email')){out.className='out show';out.innerHTML='<b>Need your name and a valid email so I can get back to you.</b>';return}
-    const body=`Name: ${v('b-name')}\nEmail: ${v('b-email')}\nEvent: ${v('b-type')}\nLineup: ${v('b-lineup')}\nDate: ${v('b-date')||'TBD'}\nWhere: ${v('b-where')||'TBD'}\nNotes: ${v('b-notes')||'-'}`;
-    const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-    out.className='out show';
-    out.innerHTML=`<b>Got it. Here's your request:</b><pre>${esc(body)}</pre><span class="sub" style="font-size:14px">Draft: at launch this goes straight to Gino's inbox. For now, send it to theginovibe@proton.me.</span>`;
+    if(!v('b-name')||!v('b-email')||!document.getElementById('b-email').checkValidity()){out.className='out show';out.innerHTML='<b>Need your name and a valid email so I can get back to you.</b>';return}
+    const data={name:v('b-name'),email:v('b-email'),event_type:v('b-type'),lineup:v('b-lineup'),date:v('b-date')||'Flexible / not sure yet',where:v('b-where')||'Not given',notes:v('b-notes')||'-'};
+    const body=Object.entries(data).map(([k,x])=>`${k.replace('_',' ')}: ${x}`).join('\n');
+    if(!WEB3FORMS_KEY){out.className='out show';out.innerHTML=`<b>Got it. Here's your request:</b><pre>${esc(body)}</pre><span class="sub" style="font-size:14px">The form isn't connected yet. For now, send this to theginovibe@proton.me.</span>`;return}
+    const btn=bf.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Sending...';
+    try{
+      const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:`Booking request: ${data.event_type}, ${data.date}`,from_name:'The Gino Vibe website',replyto:data.email,botcheck:bf.querySelector('.hp').checked?'1':'',...data})});
+      const j=await r.json();
+      if(!j.success)throw new Error(j.message||'failed');
+      out.className='out show';out.innerHTML=`<b>Request sent. Thanks, ${esc(data.name.split(' ')[0])}!</b><p class="sub" style="margin:8px 0 0">I'll get back to you at ${esc(data.email)}, usually within a day or two.</p>`;
+      bf.reset();showPicked();drawCal();
+    }catch(err){
+      out.className='out show';out.innerHTML=`<b>Hmm, that didn't go through.</b><p class="sub" style="margin:8px 0 0">Please email theginovibe@proton.me with your details instead. Sorry about that.</p>`;
+    }finally{btn.disabled=false;btn.textContent='Send booking request'}
   });
 }
 </script>
