@@ -392,10 +392,18 @@ footer{border-top:1px solid var(--line);background:#120c08}
   ];
   document.getElementById('merchgrid').innerHTML=items.map(i=>`<div class="item"><svg viewBox="0 0 200 180" role="img" aria-label="${i.n} mockup">${i.svg}</svg><h3>${i.n}</h3><p class="sub" style="margin:4px auto 0;font-size:15px">Coming soon</p></div>`).join('');
 
-  document.querySelectorAll('[data-signup]').forEach(f=>f.addEventListener('submit',e=>{
+  document.querySelectorAll('[data-signup]').forEach(f=>f.addEventListener('submit',async e=>{
     e.preventDefault();
-    const t=f.nextElementSibling;
-    t.textContent=f.checkValidity()?"You're on the list. (Draft: this connects to the newsletter tool at launch.)":'Pop in a real email address.';
+    const t=f.nextElementSibling, btn=f.querySelector('button'), email=f.querySelector('input').value.trim();
+    if(!f.checkValidity()){t.textContent='Pop in a real email address.';return}
+    btn.disabled=true;t.textContent='Adding you...';
+    try{
+      const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'New email signup: The Gino Vibe',from_name:'The Gino Vibe website',email,list:'Main list',signed_up_from:btn.textContent.trim()})});
+      const j=await r.json();
+      if(j.success){t.textContent="You're on the list. Thanks!";f.reset()}else throw 0;
+    }catch(_){t.textContent="That didn't go through. Try again, or email theginovibe@proton.me."}
+    btn.disabled=false;
   }));
 
   // ---- booking calendar ----
