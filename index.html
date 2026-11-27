@@ -195,7 +195,7 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
 <header><div class="nav">
   <a class="logo" href="#top"><img src="img/logos/drive-badge-128.png" alt="" width="44" height="43" style="display:inline-block;vertical-align:middle;margin-right:10px;border-radius:50%">The Gino <span>Vibe</span></a>
-  <nav><a href="#music">Music</a><a href="#clips">Videos</a><a href="#shows">Shows</a><a href="meditation.html">Meditation</a><a href="#about">About</a><a href="#merch">Merch</a></nav>
+  <nav><a href="#music">Music</a><a href="#clips">Videos</a><a href="#shows">Shows</a><a href="meditation.html">Meditation</a><a href="#about">About</a><a href="#merch">Merch</a><a href="https://theginovibe-shop.fourthwall.com" target="_blank" rel="noopener">Shop</a></nav>
   <a class="btn fill" href="#book">Book a show</a>
 </div></header>
 
@@ -294,9 +294,9 @@ footer{border-top:1px solid var(--line);background:#120c08}
 
 <section class="band merch" id="merch"><div class="wrap">
   <h2>Merch</h2>
-  <p class="sub" style="margin-top:14px">Shirts, hats and stickers for the people who keep coming back.</p>
+  <p class="sub" style="margin-top:14px">The Mucho collection: tees, hoodies, trucker hats, beanies, rocks glasses and more, for the people who keep coming back.</p>
   <div class="mgrid3" id="merchgrid"></div>
-  <p class="note">Placeholder items. The shop will run through a print-on-demand store, so nothing has to be stocked.</p>
+  <div class="facts" style="margin-top:28px;justify-content:center"><a class="btn fill" href="https://theginovibe-shop.fourthwall.com" target="_blank" rel="noopener">Shop all merch</a></div>
 </div></section>
 
 <section class="band" id="book"><div class="wrap">
@@ -386,11 +386,11 @@ footer{border-top:1px solid var(--line);background:#120c08}
   const stk='<circle cx="100" cy="90" r="62" fill="#eaa54b"/><circle cx="100" cy="90" r="52" fill="none" stroke="#19110c" stroke-width="3" stroke-dasharray="4 6"/>';
   const word=(y,s,c)=>`<text x="100" y="${y}" text-anchor="middle" font-family="Righteous" font-size="${s}" fill="${c}">The Gino</text><text x="100" y="${y+s}" text-anchor="middle" font-family="Righteous" font-size="${s}" fill="${c}">Vibe</text>`;
   const items=[
-    {n:'Gino Vibe tee',svg:tee+word(92,15,'#eaa54b')},
-    {n:'Dad cap',svg:hat+word(86,13,'#eaa54b')},
-    {n:'Sticker pack',svg:stk+word(86,18,'#19110c')}
+    {n:'Mucho tees',p:'$30',svg:tee+word(92,15,'#eaa54b')},
+    {n:'Trucker hats & beanies',p:'From $25',svg:hat+word(86,13,'#eaa54b')},
+    {n:'Magnets, glasses & more',p:'From $10',svg:stk+word(86,18,'#19110c')}
   ];
-  document.getElementById('merchgrid').innerHTML=items.map(i=>`<div class="item"><svg viewBox="0 0 200 180" role="img" aria-label="${i.n} mockup">${i.svg}</svg><h3>${i.n}</h3><p class="sub" style="margin:4px auto 0;font-size:15px">Coming soon</p></div>`).join('');
+  document.getElementById('merchgrid').innerHTML=items.map(i=>`<a class="item" href="https://theginovibe-shop.fourthwall.com" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit"><svg viewBox="0 0 200 180" role="img" aria-label="${i.n}">${i.svg}</svg><h3>${i.n}</h3><p class="sub" style="margin:4px auto 0;font-size:15px">${i.p}</p></a>`).join('');
 
   document.querySelectorAll('[data-signup]').forEach(f=>f.addEventListener('submit',async e=>{
     e.preventDefault();
